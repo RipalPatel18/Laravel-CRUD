@@ -6,16 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
-    {
-        Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->string('courseName');
-            $table->string('courseID');
-            $table->text('description')->nullable();
-            $table->timestamps();
-        });
-    }
+ public function up(): void
+{
+    Schema::create('courses', function (Blueprint $table) {
+        $table->id();
+        $table->string('courseName');
+        $table->string('courseID');
+        $table->text('description')->nullable();
+        $table->softDeletes();   
+        $table->timestamps();
+    });
+}
+
+
 
     public function down(): void
     {

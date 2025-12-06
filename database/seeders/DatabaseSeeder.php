@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Student;
 use App\Models\User;
-use Database\Seeders\CourseSeeder;
+use App\Models\Student;
+use App\Models\Course;
+use App\Models\Professor;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,10 +17,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Student::factory(100)->create();
-        
-        $this->call([
-            CourseSeeder::class,
-        ]);
+       
+        Student::factory(50)->create();
+
+   
+        Course::factory(10)->create();
+
+         Professor::factory(10)->create();
     }
 }

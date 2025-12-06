@@ -1,19 +1,50 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Laravel\Fortify\Features;
+use App\Http\Controllers\CourseController;
 
 Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('home');
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    return redirect()->route('students.index');
 });
 
-require __DIR__.'/settings.php';
+
+Route::get(
+    'students/trash/{id}',
+    [StudentController::class, 'trash']
+)->name('students.trash');
+
+// View all trashed students 
+Route::get(
+    'students/trashed',
+    [StudentController::class, 'trashed']
+)->name('students.trashed');
+
+// Restore from trash
+Route::get(
+    'students/restore/{id}',
+    [StudentController::class, 'restore']
+)->name('students.restore');
+
+Route::get(
+    'courses/trash/{id}', 
+    [CourseController::class, 'trash']
+    )->name('courses.trash');
+
+Route::get(
+    'courses/trashed', 
+    [CourseController::class, 'trashed']
+    )->name('courses.trashed');
+
+Route::get(
+    'courses/restore/{id}', 
+    [CourseController::class, 'restore']
+    )->name('courses.restore');
+
+// Resource routes: index, create, store, show, edit, update, destroy
+Route::resource('students', StudentController::class);
+
+Route::resource('courses', CourseController::class);
+
+Route::resource('professors', \App\Http\Controllers\ProfessorController::class);
+
