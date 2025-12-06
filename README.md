@@ -2,7 +2,7 @@
 
 
 
-## ✅ Features
+## Features
 
 ### Students CRUD
 - View all students  
@@ -30,7 +30,7 @@
 
 ---
 
-## ✅ Technologies Used
+## Technologies Used
 
 - Laravel (PHP Framework)
 - MySQL (Database)
@@ -41,7 +41,7 @@
 
 ---
 
-## ✅ Validation & Error Handling
+## Validation & Error Handling
 
 All forms include:
 - Required field validation
