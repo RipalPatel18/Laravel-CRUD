@@ -63,6 +63,25 @@
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
+                        <label for="courses">Select Courses:</label>
+                <select name="courses[]" id="courses" class="form-control" multiple>
+                    @foreach($courses as $course)
+                        <option value="{{ $course->id }}">
+                            {{ $course->courseName }} ({{ $course->courseID }})
+                        </option>
+                    @endforeach
+                </select>
+
+
+</select>
+
+</div>
+  
+                @error('email')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+
 
             <button type="submit" class="btn btn-success">Submit</button>
         </form>

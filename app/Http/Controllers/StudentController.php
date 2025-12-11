@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
+use App\Models\Course;
 use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
@@ -19,39 +20,66 @@ class StudentController extends Controller
 
     // GET /students/create
     public function create()
-    {
-        return view('students.create');
-    }
+{
+    $courses = Course::all();  
+
+    return view('students.create', [
+        'courses' => $courses,
+    ]);
+}
+
 
     // POST /students
     public function store(StoreStudentRequest $request)
-    {
-        Student::create($request->validated());
+{
+    // create the student first
+   $student = Student::create($request->only(['fname','lname','email']));
 
-        Session::flash('success', 'Student added successfully');
-        return redirect()->route('students.index');
-    }
+if ($request->courses) {
+    $student->courses()->attach($request->courses);
+}
+
+
+    return redirect()->route('students.index');
+}
+
 
     // GET /students/{student}
     public function show(Student $student)
     {
-        return view('students.show', compact('student'));
+        return view('students.show', [
+    'student' => $student->load('courses')
+]);
+
+
     }
 
     // GET /students/{student}/edit
-    public function edit(Student $student)
-    {
-        return view('students.edit', compact('student'));
-    }
+   public function edit(Student $student)
+{
+    $courses = Course::all();
+
+    return view('students.edit', [
+        'student' => $student,
+        'courses' => $courses,
+    ]);
+}
+
 
     // PUT /students/{student}
-    public function update(UpdateStudentRequest $request, Student $student)
-    {
-        $student->update($request->validated());
+   public function update(UpdateStudentRequest $request, Student $student)
+{
+    $student->update($request->validated());
 
-        Session::flash('success', 'Student updated successfully');
-        return redirect()->route('students.index');
+    if ($request->courses) {
+        $student->courses()->sync($request->courses);
+    } else {
+        $student->courses()->sync([]); 
     }
+
+     return redirect()->route('students.index');
+}
+
 
     // Soft delete (trash)
     public function trash($id)

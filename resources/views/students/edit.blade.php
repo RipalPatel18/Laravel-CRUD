@@ -65,6 +65,20 @@
                 @enderror
             </div>
 
+    <div class="mb-3">
+                   <label for="courses">Select Courses:</label>
+<select name="courses[]" id="courses" class="form-control" multiple>
+    @foreach($courses as $course)
+        <option value="{{ $course->id }}"
+            {{ $student->courses->contains($course->id) ? 'selected' : '' }}>
+            {{ $course->courseName }} ({{ $course->courseID }})
+        </option>
+    @endforeach
+</select>
+
+
+ </div>
+
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>

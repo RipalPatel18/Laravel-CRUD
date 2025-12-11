@@ -21,6 +21,16 @@
         <textarea name="description" class="form-control"></textarea>
     </div>
 
+ <div class="mb-3">
+    <label>Professor:</label>
+<select name="professor_id">
+    <option value="">-- Select --</option>
+    @foreach(App\Models\Professor::all() as $professor)
+        <option value="{{ $professor->id }}">{{ $professor->name }}</option>
+    @endforeach
+</select>
+</div>
+
     <button class="btn btn-success">Submit</button>
 </form>
 @endsection

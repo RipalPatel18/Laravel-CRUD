@@ -17,6 +17,8 @@ class StoreStudentRequest extends FormRequest
             'fname' => 'required|string',
             'lname' => 'required|string',
             'email' => 'required|email',
+            'courses' => 'array',     
+            'courses.*' => 'integer', 
         ];
     }
 }
